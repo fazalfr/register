@@ -1,56 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-	<link rel="stylesheet" type="text/css" href="style.css">
-    <meta charset='utf-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>User List</title>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src='main.js'></script>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <meta charset='utf-8'>
+  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+  <title>User List</title>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <script src='main.js'></script>
 </head>
+
 <body>
   <div><br>
-  <button id="myButton" class="float-left submit-button">Home</button>
+    <button id="myButton" class="float-left submit-button">Home</button>
     <table class="table table-bordered">
-        <thead>
-          <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Gender</th>
-            <th>Country</th>
-            <th>Email</th>
-            <th>Username</th>
-            <th>Password</th>
-            <th>Date of Birth</th>
-            <th>Zip Code</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <script>
-            // Retrieve the user data from local storage
-            var users = JSON.parse(localStorage.getItem("users")) || [];
-      
-            // Loop through each user and add a row to the table
-            users.forEach(function(user,index) {
-              var row = document.createElement("tr");
-              row.innerHTML = "<td>" + user.firstname + "</td>" +
-                              "<td>" + user.lastname + "</td>" +
-                              "<td>" + user.gender + "</td>" +
-                              "<td>" + user.country + "</td>" +
-                              "<td>" + user.email + "</td>" +
-                              "<td>" + user.username + "</td>" +
-                              "<td>" + user.password + "</td>" +
-                              "<td>" + user.dob + "</td>" +
-                              "<td>" + user.zip + "</td>" +
-                              '<td><button onclick="deleteData(' + index + ')" class="btn btn-danger">Delete</button>  <button onclick="UpdateData(' + index + ')" class="btn btn-warning m-2">Edit</button>' ;
-                              
-              document.getElementsByTagName("tbody")[0].appendChild(row);
-            });
-            
-            function deleteData(index) {
+      <thead>
+        <tr>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Gender</th>
+          <th>Country</th>
+          <th>Email</th>
+          <th>Username</th>
+          <th>Password</th>
+          <th>Date of Birth</th>
+          <th>Zip Code</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <script>
+          // Retrieve the user data from local storage
+          var users = JSON.parse(localStorage.getItem("users")) || [];
+
+          // Loop through each user and add a row to the table
+          users.forEach(function (user, index) {
+            var row = document.createElement("tr");
+            row.innerHTML = "<td>" + user.firstname + "</td>" +
+              "<td>" + user.lastname + "</td>" +
+              "<td>" + user.gender + "</td>" +
+              "<td>" + user.country + "</td>" +
+              "<td>" + user.email + "</td>" +
+              "<td>" + user.username + "</td>" +
+              "<td>" + user.password + "</td>" +
+              "<td>" + user.dob + "</td>" +
+              "<td>" + user.zip + "</td>" +
+              '<td><button onclick="deleteData(' + index + ')" class="btn btn-danger">Delete</button>  <button onclick="updateData(' + index + ')" class="btn btn-warning m-2">Edit</button>';
+
+            document.getElementsByTagName("tbody")[0].appendChild(row);
+          });
+
+          function deleteData(index) {
             // Remove the user from the users array at the given index
             users.splice(index, 1);
             // Update the users data in local storage
@@ -60,36 +63,130 @@
             location.reload();
           }
 
-          
           function updateData(index) {
+
             // Get the user data for the selected index
             var user = users[index];
 
-            // Redirect to the update page with the user data as URL parameters
-            location.href = "update.html?firstname=" + user.firstname +
-                             "&lastname=" + user.lastname +
-                             "&gender=" + user.gender +
-                             "&country=" + user.country +
-                             "&email=" + user.email +
-                             "&username=" + user.username +
-                             "&password=" + user.password +
-                             "&dob=" + user.dob +
-                             "&zip=" + user.zip +
-                             "&index=" + index;
+            // Create a form and populate it with the user data
+            var form = document.createElement("form");
+            form.innerHTML = "<label>First Name: <input type='text' name='firstname' value='" + user.firstname + "'></label><br>" +
+              "<label>Last Name: <input type='text' name='lastname' value='" + user.lastname + "'></label><br>" +
+              "<label>Gender: <input type='text' name='gender' value='" + user.gender + "'></label><br>" +
+              "<label>Country: <input type='text' name='country' value='" + user.country + "'></label><br>" +
+              "<label>Email: <input type='text' name='email' value='" + user.email + "'></label><br>" +
+              "<label>Username: <input type='text' name='username' value='" + user.username + "'></label><br>" +
+              "<label>Password: <input type='text' name='password' value='" + user.password + "'></label><br>" +
+              "<label>Date of Birth: <input type='date' name='dob' value='" + user.dob + "'></label><br>" +
+              "<label>Zip Code: <input type='text' name='zip' value='" + user.zip + "'></label><br>" +
+              "<input type='hidden' name='index' value='" + index + "'>";
+
+            // Create a modal popup and add the form to it
+            var modal = document.createElement("div");
+            modal.classList.add("modal");
+            modal.innerHTML = "<div class='modal-content'>" +
+              "<span class='close'>&times;</span>" +
+              "<h2>Edit User Data</h2>" +
+              form.outerHTML +
+              "<button type='button' onclick='saveData(" + index + ")'>Save</button>" +
+              "</div>";
+            document.body.appendChild(modal);
+
+            // Add event listener to close the modal popup when the user clicks outside of it
+            window.onclick = function (event) {
+              if (event.target == modal) {
+                modal.style.display = "none";
+              }
+            }
+
+            // Add event listener to close the modal popup when the user clicks the close button
+            modal.querySelector(".close").onclick = function () {
+              modal.style.display = "none";
+            };
+
+            // Show the modal popup
+            modal.style.display = "block";
           }
 
-            document.getElementById("myButton").onclick = function () {
-        location.href = "file:///F:/petroinfo/Index.html";
-      };
+          function saveData(index) {
+            // Get the form data
+            var form = document.forms[0];
+            var formData = new FormData(form);
 
-          </script>
-        </tbody>
-      </table>
-      
-   
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+            // Get the user data for the selected index
+            var user = users[index];
+
+            // Update the user data with the form data
+            user.firstname = formData.get("firstname");
+            user.lastname = formData.get("lastname");
+            user.gender = formData.get("gender");
+            user.country = formData.get("country");
+            user.email = formData.get("email");
+            user.username = formData.get("username");
+            user.password = formData.get("password");
+            user.dob = formData.get("dob");
+            user.zip = formData.get("zip");
+
+            // Update the users data in local storage
+            localStorage.setItem("users", JSON.stringify(users));
+
+            // Close the modal popup
+            var modal = document.querySelector(".modal");
+            modal.style.display = "none";
+
+            // Refresh the page to show the updated table
+            location.reload();
+          }
+          function saveData(index) {
+            // Get the form data
+            var form = document.forms[0];
+            var formData = new FormData(form);
+
+            // Get the user data for the selected index
+            var user = users[index];
+
+            // Update the user data with the form data
+            user.firstname = formData.get("firstname");
+            user.lastname = formData.get("lastname");
+            user.gender = formData.get("gender");
+            user.country = formData.get("country");
+            user.email = formData.get("email");
+            user.username = formData.get("username");
+            user.password = formData.get("password");
+            user.dob = formData.get("dob");
+            user.zip = formData.get("zip");
+
+            // Update the users data in local storage
+            localStorage.setItem("users", JSON.stringify(users));
+
+            // Close the modal popup
+            var modal = document.querySelector(".modal");
+            modal.style.display = "none";
+
+            // Refresh the page to show the updated table
+            location.reload();
+          }
+
+
+          document.getElementById("myButton").onclick = function () {
+            location.href = "Index.html";
+          };
+
+        </script>
+      </tbody>
+    </table>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+      integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+      crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+      integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+      crossorigin="anonymous"></script>
 
 </body>
+
 </html>
