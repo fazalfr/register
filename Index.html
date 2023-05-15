@@ -12,19 +12,12 @@
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
 		integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 	<script src='main.js'></script>
-
-
-
-
-
 </head>
 
 <body>
 	<header>
 		<h1></h1>
 	</header>
-
-	<!-- --------------------------working------------------------- -->
 
 	<div class="container">
 		<div class="left-side">
@@ -120,21 +113,13 @@
 
 					<div class="text-sm-end  text-md-end">
 						<button class="btn btn-primary" id="submit" onclick="AddData()">Submit form</button>
-						<button type="button" class="btn btn-danger">Cancel</button>
+						<button type="button" class="btn btn-danger" id="cancelBtn">Cancel</button>
 					</div>
 
 				</form>
 			</div>
 		</div>
 	</div>
-
-
-	<!-- <script>
-	function users(){
-		const div = document.getElementById("content");
-		div.innerHTML = "registration.html"
-	}
-</script> -->
 
 	<script>
 		function users() {
@@ -153,29 +138,34 @@
 				zip: document.getElementById("zip").value
 			};
 			// Check if required fields are filled
-		if (!formData.firstname || !formData.lastname || !formData.email || !formData.username || !formData.password || !formData.dob) {
-			alert("Please fill in all required fields.");
-			return;
-		}
-		else {
-			// Save the data to local storage
-			var users = JSON.parse(localStorage.getItem("users")) || [];
-			users.push(formData);
-			localStorage.setItem("users", JSON.stringify(users));
-			alert("Saved Successfully");
+			if (!formData.firstname || !formData.lastname || !formData.email || !formData.username || !formData.password || !formData.dob) {
+				alert("Please fill in all required fields.");
+				return;
+			}
+			else {
+				// Save the data to local storage
+				var users = JSON.parse(localStorage.getItem("users")) || [];
+				users.push(formData);
+				localStorage.setItem("users", JSON.stringify(users));
+				alert("Saved Successfully");
 
+			}
 		}
-			// // Save the data to local storage
-			// var users = JSON.parse(localStorage.getItem("users")) || [];
-			// users.push(formData);
-			// localStorage.setItem("users", JSON.stringify(users));
 
-	}
+		// Add event listener to "Cancel" button
+		document.getElementById("cancelBtn").addEventListener("click", function () {
+			// Reset form fields to default values
+			document.getElementById("firstname").value = "";
+			document.getElementById("lastname").value = "";
+			document.getElementById("gender").value = "";
+			document.getElementById("country").value = "";
+			document.getElementById("email").value = "";
+			document.getElementById("username").value = "";
+			document.getElementById("password").value = "";
+			document.getElementById("dob").value = "";
+			document.getElementById("zip").value = "";
+		});
 	</script>
-
-
-	<!-- ---------------------------------------------------------------------- -->
-
 
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
@@ -187,5 +177,4 @@
 		integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
 		crossorigin="anonymous"></script>
 </body>
-
 </html>
